@@ -40,7 +40,13 @@ namespace GradeBook.UserInterfaces
                 return;
             }
             var name = parts[1];
-            BaseGradeBook gradeBook = new BaseGradeBook(name);
+            var type = parts[2];
+            var gradeBook = MakeGradeBook(type, name);
+            if (gradeBook == null)
+            {
+                Console.WriteLine(Properties.Resources.UserInputGradeBookTypeIsNotSupported, type);
+                return;
+            }
             Console.WriteLine("Created gradebook {0}.", name);
             GradeBookUserInterface.CommandLoop(gradeBook);
         }
@@ -74,6 +80,21 @@ namespace GradeBook.UserInterfaces
             Console.WriteLine("Help - Displays all accepted commands.");
             Console.WriteLine();
             Console.WriteLine("Quit - Exits the application");
+        }
+
+        private static BaseGradeBook MakeGradeBook(string type, string name)
+        {
+            switch (type)
+            {
+            case "standard":
+                return new StandardGradeBook(name);
+
+            case "ranked":
+                return new RankedGradeBook(name);
+
+            default:
+                return null;
+            }
         }
     }
 }
