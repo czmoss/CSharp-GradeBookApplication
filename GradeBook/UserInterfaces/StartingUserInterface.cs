@@ -1,4 +1,4 @@
-﻿using GradeBook.GradeBooks;
+using GradeBook.GradeBooks;
 using System;
 
 namespace GradeBook.UserInterfaces
@@ -34,7 +34,7 @@ namespace GradeBook.UserInterfaces
         public static void CreateCommand(string command)
         {
             var parts = command.Split(' ');
-            if (parts.Length != 2)
+            if (parts.Length != 3)
             {
                 Console.WriteLine("Command not valid, Create requires a name.");
                 return;
