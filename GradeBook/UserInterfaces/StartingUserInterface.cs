@@ -41,7 +41,8 @@ namespace GradeBook.UserInterfaces
             }
             var name = parts[1];
             var type = parts[2];
-            var gradeBook = MakeGradeBook(type, name);
+            var isWeighted = bool.Parse(parts[3]);
+            var gradeBook = MakeGradeBook(type, name, isWeighted);
             if (gradeBook == null)
             {
                 Console.WriteLine(Properties.Resources.UserInputGradeBookTypeIsNotSupported, type);
@@ -82,15 +83,15 @@ namespace GradeBook.UserInterfaces
             Console.WriteLine("Quit - Exits the application");
         }
 
-        private static BaseGradeBook MakeGradeBook(string type, string name)
+        private static BaseGradeBook MakeGradeBook(string type, string name, bool isWeighted)
         {
             switch (type)
             {
             case "standard":
-                return new StandardGradeBook(name);
+                return new StandardGradeBook(name, isWeighted);
 
             case "ranked":
-                return new RankedGradeBook(name);
+                return new RankedGradeBook(name, isWeighted);
 
             default:
                 return null;
