@@ -38,6 +38,11 @@ namespace GradeBook.GradeBooks
                 return 'C';
             }
 
+            if (percent <= 0.8)
+            {
+                return 'D';
+            }
+
             return 'F';
         }
     }
