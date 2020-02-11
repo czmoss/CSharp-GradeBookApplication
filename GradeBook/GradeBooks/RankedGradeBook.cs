@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace GradeBook.GradeBooks
 {
@@ -17,10 +18,9 @@ namespace GradeBook.GradeBooks
                 throw new InvalidOperationException();
             }
 
-            // Sort from high to low (cf. s2 - s1).
-            Students.Sort((s1, s2) => (int)Math.Round(s2.AverageGrade - s1.AverageGrade, 0, MidpointRounding.AwayFromZero));
+            var sortedStudents = Students.OrderByDescending(s => s.AverageGrade).ToList();
 
-            var index = Students.FindIndex(s => averageGrade >= s.AverageGrade);
+            var index = sortedStudents.FindIndex(s => averageGrade >= s.AverageGrade);
             var ordinal = (double)(index + 1);
             var percent = ordinal / (double)Students.Count;
             if (percent <= 0.2)
