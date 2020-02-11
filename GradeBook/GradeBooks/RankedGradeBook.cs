@@ -1,3 +1,5 @@
+using System;
+
 namespace GradeBook.GradeBooks
 {
     public class RankedGradeBook : BaseGradeBook
@@ -12,7 +14,18 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
             {
-                throw new System.InvalidOperationException();
+                throw new InvalidOperationException();
+            }
+
+            // Sort from high to low (cf. s2 - s1).
+            Students.Sort((s1, s2) => (int)Math.Round(s2.AverageGrade - s1.AverageGrade, 0, MidpointRounding.AwayFromZero));
+
+            var index = Students.FindIndex(s => averageGrade >= s.AverageGrade);
+            var ordinal = (double)(index + 1);
+            var percent = ordinal / (double)Students.Count;
+            if (percent <= 0.2)
+            {
+                return 'A';
             }
 
             return 'F';
